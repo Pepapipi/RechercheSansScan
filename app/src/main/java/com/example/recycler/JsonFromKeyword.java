@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.MessageQueue;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
