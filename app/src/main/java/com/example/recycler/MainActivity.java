@@ -7,25 +7,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.AdapterView;
+import android.view.MotionEvent;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ProgramAdapter adapter;
     JsonFromKeyword jsonFromKeyword;
     List<Produit> produits;
-
 
 
     @Override
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     {
         jsonFromKeyword = new JsonFromKeyword();
         jsonFromKeyword.activity=this;
-        jsonFromKeyword.execute(s, "1");
+        jsonFromKeyword.execute(s);
     }
 
     public void jsonGot(String json){
@@ -76,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
+
                 rechercheDuProduit(s);
+
                 return true;
             }
 
