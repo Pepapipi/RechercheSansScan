@@ -5,13 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,22 +25,26 @@ public class MainActivity extends AppCompatActivity{
     ProgramAdapter adapter;
     JsonFromKeyword jsonFromKeyword;
     List<Produit> produits;
+    RecyclerViewClickListner recyclerViewClickListner;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setOnClickListner();
 
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void initRecyclerView() {
+
         recyclerView = findViewById(R.id.recy);
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ProgramAdapter(produits);
+        adapter = new ProgramAdapter(produits,recyclerViewClickListner);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -90,5 +94,44 @@ public class MainActivity extends AppCompatActivity{
 
         return super.onCreateOptionsMenu(menu);
     }
+
+    private void setOnClickListner(){
+        recyclerViewClickListner = new RecyclerViewClickListner() {
+            @Override
+            public void onClick(View v, int position) {
+                int i=0;
+                String text1="";
+                String text2="";
+                String text3="";
+                while(i<produits.get(position).emball.length && text1.isEmpty())
+                {
+                    text1 = adapter.verificationNomDeEmballage(position,i,text1);
+                    i++;
+                }
+                while(i<produits.get(position).emball.length && text2.isEmpty())
+                {
+                    text2 = adapter.verificationNomDeEmballage(position,i,text2);
+                    i++;
+                }
+                while(i<produits.get(position).emball.length && text3.isEmpty())
+                {
+                    text3 = adapter.verificationNomDeEmballage(position,i,text3);
+                    i++;
+                }
+
+
+                Intent intent = new Intent(getApplicationContext(),ProduitDetails.class);
+                intent.putExtra("nomPdt", produits.get(position).getNom());
+                intent.putExtra("marquePdt", produits.get(position).getMarque());
+                intent.putExtra("codeBarre", produits.get(position).getCode());
+                intent.putExtra("text1",text1);
+                intent.putExtra("text2",text2);
+                intent.putExtra("text3", text3);
+                startActivity(intent);
+            }
+        };
+    }
+
+
 
 }

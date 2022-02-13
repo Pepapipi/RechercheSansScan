@@ -38,8 +38,30 @@
                 android:layout_below="@id/description"
                 android:text="Title"
                 android:textSize="20dp" />
-
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="60dp"
+                android:layout_below="@+id/text">
+                <ImageView
+                    android:id="@+id/poubelle1"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    tools:srcCompat="@tools:sample/avatars"/>
+                <ImageView
+                    android:id="@+id/poubelle2"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    tools:srcCompat="@tools:sample/avatars"/>
+                <ImageView
+                    android:id="@+id/poubelle3"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    tools:srcCompat="@tools:sample/avatars"/>
+            </LinearLayout>
         </RelativeLayout>
 
     </LinearLayout>
